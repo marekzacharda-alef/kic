@@ -27,6 +27,15 @@ B) Protect Arcadia with NGINX App Protect in **Docker**
   5. Click Create tag
      At this moment, the Gitlab CI pipeline starts
      
+     
+  Make policy dynamic 
+     >docker run --interactive --tty --rm --name app-protect -p 80:80 \
+    --volume /home/ubuntu/lab-files/nginx.conf:/etc/nginx/nginx.conf \
+    --volume /home/ubuntu/lab-files/customized-policy:/etc/nginx/conf.d \
+    docker:443/app-protect:2023.05.09
+     
+     
+     
  C) Protect Arcadia with **KIC NAP** 
    1.  ssh to k8s VM 
    ``` helm list```
@@ -48,3 +57,15 @@ B) Protect Arcadia with NGINX App Protect in **Docker**
   --set controller.service.httpPort.nodePort=30080 \
   --version 0.15.2
   ```
+  Now, it is time to configure the Ingress Controller with CRD ressources (WAF policy, Log profile, Ingress routing …)
+
+Execute the following commands to deploy the different resources
+
+cd /home/ubuntu/lab-files/ingress
+
+kubectl apply -f ap-dataguard-policy.yaml
+kubectl apply -f ap-logconf.yaml
+kubectl apply -f nap-waf.yaml
+kubectl apply -f virtual-server-waf.yaml
+
+
