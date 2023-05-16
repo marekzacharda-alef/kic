@@ -21,4 +21,30 @@ B) Protect Arcadia with NGINX App Protect in **Docker**
   
   app-protect-attack-signatures.x86_64            ** 2023.05.09**-1.el7.ngx
   
-  
+  3. In GitLab, click on Repository and Tags in the left menu
+  4. Create a new tag and give it a name (though the tag name is arbitrary and the job will run with any tag name) Example: Sig-2021.07.13 where ideally <version_date> should be replaced by the package version information found in the result of the yum info step above.         But it does not matter, you can put anything you want in this tag.
+
+  5. Click Create tag
+     At this moment, the Gitlab CI pipeline starts
+     
+ C) Protect Arcadia with **KIC NAP** 
+   1.  ssh to k8s VM 
+   ``` helm list```
+   ```helm uninstall nginx-ingress```
+   
+   ```helm repo add nginx-stable https://helm.nginx.com/stable
+  helm repo update
+
+  helm install plus nginx-stable/nginx-ingress \
+  --namespace ingress \
+  --set controller.kind=deployment \
+  --set controller.replicaCount=1 \
+  --set controller.nginxplus=true \
+  --set controller.image.repository=private-registry.nginx.com/nginx-ic-nap/nginx-plus-ingress \
+  --set controller.image.tag=2.4.2 \
+  --set controller.appprotect.enable=true \
+  --set controller.serviceAccount.imagePullSecretName=regcred \
+  --set controller.service.type=NodePort \
+  --set controller.service.httpPort.nodePort=30080 \
+  --version 0.15.2
+  ```
