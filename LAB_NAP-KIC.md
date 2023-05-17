@@ -40,9 +40,9 @@ B) Protect Arcadia with NGINX App Protect in **Docker**
  C) Protect Arcadia with **KIC NAP** 
    1.  ssh to k8s VM 
    ``` helm list```
-   ```helm uninstall nginx-ingress```
+   ``` helm uninstall nginx-ingress```
    
-   ```helm repo add nginx-stable https://helm.nginx.com/stable
+   ``` helm repo add nginx-stable https://helm.nginx.com/stable```
   helm repo update
 
   helm install plus nginx-stable/nginx-ingress \
