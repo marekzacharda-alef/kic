@@ -5,8 +5,9 @@ https://clouddocs.f5.com/training/community/nginx-app-protect-standalone/html
 1. check if arcadia finance k8s cluster is running 
 
 A) Protect Arcadia with NGINX App Protect in **host VM** 
-  1. /home/centos/lab-files/remove-app-protect-cleanup.sh 
-  clear old installation 
+  1. clear old installation 
+  ```/home/centos/lab-files/remove-app-protect-cleanup.sh``` 
+  
   2.  Run the CI/CD pipeline from Gitlab
       Steps:
       RDP to the Jumphost with credentials user:user
